@@ -20,15 +20,22 @@ if (!existsSync(brand)) {
 
 mkdirSync(out, { recursive: true });
 
+// Only the files the site actually references (src/index.html, site.webmanifest).
+// The in-app logo is inline SVG (src/app/layout/logo.component.ts).
 const copies = [
-  ['icons', '.'], // favicon.ico, icon-dark.svg, icon-dark-180.png … at the site root
+  ['icons/favicon.ico', 'favicon.ico'],
+  ['icons/icon-dark.svg', 'icon-dark.svg'],
+  ['icons/icon-dark-180.png', 'icon-dark-180.png'], // apple-touch-icon
+  ['icons/icon-dark-192.png', 'icon-dark-192.png'], // manifest
+  ['icons/icon-dark-512.png', 'icon-dark-512.png'], // manifest
   ['site.webmanifest', 'site.webmanifest'],
-  ['social', 'social'],
-  ['logo', 'logo'],
+  ['social/og-image.png', 'social/og-image.png'], // og:image
 ];
 
 for (const [from, to] of copies) {
-  cpSync(join(brand, from), join(out, to), { recursive: true });
+  const dest = join(out, to);
+  mkdirSync(dirname(dest), { recursive: true });
+  cpSync(join(brand, from), dest);
 }
 
 console.log('[sync-brand] brand assets copied to public/');
