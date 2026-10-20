@@ -1,0 +1,273 @@
+/*
+ * Diadem Consults — global styles.
+ *
+ * Palette and type mirror diadem-consults-brand/tokens.css. Brand rules that
+ * shape these choices:
+ *   - Signal Blue is used on ONE element per view (usually the primary action).
+ *   - Navy carries structure, Mist carries secondary text.
+ *   - Square corners throughout (--dc-radius: 0).
+ */
+:root {
+  --dc-ink: #0A0A0B;
+  --dc-navy: #0F2A5C;
+  --dc-blue: #2F6FED;
+  --dc-mist: #8FA6CC;
+  --dc-paper: #FFFFFF;
+  --dc-tint: #F4F6FA;
+  --dc-line: rgba(255, 255, 255, .12);
+
+  /* Roboto everywhere (loaded in index.html); system fallbacks only while it loads. */
+  --dc-font-ui: 'Roboto', Helvetica, Arial, sans-serif;
+  --dc-font-display: var(--dc-font-ui);
+  --dc-track-eyebrow: 6px;
+  --dc-radius: 0;
+
+  /* Derived — not in the brand pack, used for UI states on light surfaces. */
+  --dc-line-light: #DCE3EF;
+  --dc-muted: #4A5F85;
+  --dc-danger: #C0392B;
+  --dc-danger-ink: #8E2B20;
+  --dc-danger-bg: #FDF0EF;
+  --dc-ok: #1E7B4F;
+  --dc-ok-bg: #EAF6EF;
+
+  /* Site header height incl. its 1px rule — lets full-screen sections sit exactly below it. */
+  --dc-header-h: 73px;
+}
+@media (max-width: 720px) {
+  :root { --dc-header-h: 65px; }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Ink canvas: header and footer are both dark, so overscroll/bounce at
+   either end stays dark instead of flashing white. */
+html { -webkit-text-size-adjust: 100%; background: var(--dc-ink); }
+
+body {
+  margin: 0;
+  background: var(--dc-paper);
+  color: var(--dc-ink);
+  font-family: var(--dc-font-ui);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Form controls don't inherit the page font by default. */
+button, input, select, textarea { font: inherit; }
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--dc-blue); outline-offset: 2px; }
+
+h1, h2, h3 { line-height: 1.15; letter-spacing: -.02em; margin: 0; }
+
+/* ------------------------------------------------------------------ */
+/* Layout                                                              */
+/* ------------------------------------------------------------------ */
+
+.dc-container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.dc-container--narrow { max-width: 680px; }
+
+@media (max-width: 600px) {
+  .dc-container { padding: 0 16px; }
+}
+
+.dc-page { padding: 56px 0 96px; }
+@media (max-width: 600px) { .dc-page { padding: 36px 0 64px; } }
+
+.dc-page-title { font-size: clamp(28px, 4vw, 38px); margin-bottom: 12px; }
+.dc-page-lede { color: var(--dc-muted); margin: 0 0 36px; max-width: 58ch; }
+
+/* ------------------------------------------------------------------ */
+/* Type helpers                                                        */
+/* ------------------------------------------------------------------ */
+
+.dc-eyebrow {
+  display: block;
+  font-size: 11px;
+  letter-spacing: var(--dc-track-eyebrow);
+  text-transform: uppercase;
+  color: var(--dc-mist);
+  margin-bottom: 14px;
+}
+
+.dc-motto {
+  font-family: var(--dc-font-display);
+  font-style: italic;
+  color: var(--dc-mist);
+}
+
+.dc-visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Buttons                                                             */
+/* ------------------------------------------------------------------ */
+
+.dc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 12px 22px;
+  border: 1px solid transparent;
+  border-radius: var(--dc-radius);
+  font: inherit;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.dc-btn:disabled { opacity: .55; cursor: not-allowed; }
+
+/* The one Signal Blue element on a view. */
+.dc-btn--primary { background: var(--dc-blue); color: var(--dc-paper); }
+.dc-btn--primary:hover:not(:disabled) { background: #245BD0; }
+.dc-btn--primary:focus-visible { outline-color: var(--dc-ink); }
+
+.dc-btn--dark { background: var(--dc-ink); color: var(--dc-paper); }
+.dc-btn--dark:hover:not(:disabled) { background: var(--dc-navy); }
+
+.dc-btn--ghost { background: transparent; color: inherit; border-color: currentColor; }
+.dc-btn--ghost:hover:not(:disabled) { background: rgba(127, 140, 170, .12); }
+
+.dc-btn--block { width: 100%; }
+.dc-btn--small { min-height: 36px; padding: 7px 14px; font-size: 13px; }
+
+.dc-link-button {
+  background: none; border: 0; padding: 0;
+  font: inherit; color: inherit; text-decoration: underline; cursor: pointer;
+}
+
+/* ------------------------------------------------------------------ */
+/* Form fields                                                         */
+/* ------------------------------------------------------------------ */
+
+.dc-field { display: block; margin-bottom: 20px; }
+.dc-field > span,
+.dc-label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+.dc-field > span small,
+.dc-label small { font-weight: normal; color: var(--dc-mist); margin-left: 5px; }
+
+.dc-input,
+.dc-field input,
+.dc-field textarea,
+.dc-field select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--dc-line-light);
+  border-radius: var(--dc-radius);
+  background: var(--dc-paper);
+  font: inherit;
+  font-size: 15px;
+  color: var(--dc-ink);
+}
+.dc-field textarea { resize: vertical; }
+.dc-input:focus,
+.dc-field input:focus,
+.dc-field textarea:focus,
+.dc-field select:focus {
+  outline: 2px solid var(--dc-navy);
+  outline-offset: -1px;
+  border-color: var(--dc-navy);
+}
+.dc-field input[aria-invalid='true'],
+.dc-field textarea[aria-invalid='true'] { border-color: var(--dc-danger); }
+
+.dc-field-error {
+  display: block;
+  margin-top: 6px;
+  font-style: normal;
+  font-size: 12.5px;
+  color: var(--dc-danger);
+}
+.dc-field-hint { display: block; margin-top: 5px; font-size: 12px; color: var(--dc-muted); }
+.dc-count { display: block; text-align: right; font-size: 12px; color: var(--dc-mist); margin-top: 5px; }
+
+/* ------------------------------------------------------------------ */
+/* Segmented toggle                                                    */
+/* ------------------------------------------------------------------ */
+
+.dc-toggle { display: flex; border: 1px solid var(--dc-line-light); margin-bottom: 24px; }
+.dc-toggle > * {
+  flex: 1;
+  padding: 13px 16px;
+  background: var(--dc-paper);
+  border: 0;
+  font: inherit;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--dc-muted);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.dc-toggle > * + * { border-left: 1px solid var(--dc-line-light); }
+.dc-toggle > .is-active { background: var(--dc-ink); color: var(--dc-paper); }
+.dc-toggle--sub > .is-active { background: var(--dc-navy); }
+
+/* ------------------------------------------------------------------ */
+/* Alerts and cards                                                    */
+/* ------------------------------------------------------------------ */
+
+.dc-alert {
+  margin: 18px 0 0;
+  padding: 13px 15px;
+  border-left: 3px solid;
+  font-size: 14px;
+}
+.dc-alert--error { background: var(--dc-danger-bg); border-color: var(--dc-danger); color: var(--dc-danger-ink); }
+.dc-alert--info { background: var(--dc-tint); border-color: var(--dc-navy); color: var(--dc-ink); }
+
+.dc-card {
+  background: var(--dc-tint);
+  padding: 28px;
+}
+@media (max-width: 600px) { .dc-card { padding: 20px; } }
+
+/* ------------------------------------------------------------------ */
+/* Status badge                                                        */
+/* ------------------------------------------------------------------ */
+
+.dc-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--dc-tint);
+  color: var(--dc-navy);
+  border: 1px solid var(--dc-line-light);
+}
+.dc-badge--pending { background: #FFF7E6; color: #7A5200; border-color: #F2DDAE; }
+.dc-badge--confirmed,
+.dc-badge--scheduled { background: #EAF0FD; color: var(--dc-navy); border-color: #C9D8F7; }
+.dc-badge--in-review { background: #F1ECFA; color: #4B2E83; border-color: #DCD0F1; }
+.dc-badge--completed { background: var(--dc-ok-bg); color: var(--dc-ok); border-color: #C5E6D3; }
+.dc-badge--cancelled { background: #F2F2F2; color: #5B5B5B; border-color: #DDDDDD; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

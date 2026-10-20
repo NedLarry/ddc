@@ -1,0 +1,17 @@
+/dist
+/out-tsc
+/node_modules
+/.angular/cache
+/coverage
+npm-debug.log
+yarn-error.log
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# Copied from ../diadem-consults-brand by scripts/sync-brand.mjs
+/public/*
+!/public/robots.txt
+
+.angular/
